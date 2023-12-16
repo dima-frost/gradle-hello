@@ -32,7 +32,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "java -jar target/hello-${BUILD_NUMBER}.jar > output.log"
+                sh "java -jar target/hello-${BUILD_NUMBER}.jar | tee output.log"
             }
         }
     }
