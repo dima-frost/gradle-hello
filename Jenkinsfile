@@ -5,7 +5,8 @@ pipeline {
         maven "maven-3.9.6"
     }
      environment {
-        ARTEFACT_NAME="hello-${BUILD_NUMBER}.tar.gz"
+        ARTEFACT_NAME = "hello-${BUILD_NUMBER}.tar.gz"
+        BUILD_NUMBER = ${BUILD_NUMBER}
     }
 
     stages {
