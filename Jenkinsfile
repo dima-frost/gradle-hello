@@ -9,11 +9,15 @@ pipeline {
     }
 
     stages {
+        stage('test') {
+            steps {
+            
+                sh "mvn clean test"
+            }
         stage('Build') {
             steps {
             
                 sh "mvn clean package"
-                
             }
 
             post {
