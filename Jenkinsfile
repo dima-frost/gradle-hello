@@ -21,7 +21,7 @@ pipeline {
                 // failed, record the test results and archive the jar file.
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
-                    sh "tar -czvf ${ARTEFACT_NAME} target/hello-${BUILD_NUMBER}.jar"
+                    sh "tar -czvf target/${ARTEFACT_NAME} target/hello-${BUILD_NUMBER}.jar"
                 }
             }
         }
