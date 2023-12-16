@@ -14,6 +14,7 @@ pipeline {
             
                 sh "mvn clean test"
             }
+        }
         stage('Build') {
             steps {
             
@@ -27,6 +28,12 @@ pipeline {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     sh "tar -czvf target/${ARTEFACT_NAME} target/hello-${BUILD_NUMBER}.jar"
                 }
+            }
+        }
+        stage('deploy') {
+            steps {
+            
+                sh "java -jar target/hello-${BUILD_NUMBER}.jar" > output.log
             }
         }
     }
