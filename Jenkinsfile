@@ -6,7 +6,6 @@ pipeline {
     }
      environment {
         ARTEFACT_NAME = "hello-${BUILD_NUMBER}.tar.gz"
-        BUILD_NUMBER = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -33,8 +32,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-            
-                sh "java -jar target/hello-${BUILD_NUMBER}.jar" > output.log
+                sh "java -jar target/hello-${BUILD_NUMBER}.jar > output.log"
             }
         }
     }
