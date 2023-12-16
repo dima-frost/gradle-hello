@@ -6,7 +6,7 @@ pipeline {
     }
      environment {
         ARTEFACT_NAME = "hello-${BUILD_NUMBER}.tar.gz"
-        BUILD_NUMBER = ${BUILD_NUMBER}
+        BUILD_NUMBER = "${BUILD_NUMBER}"
     }
 
     stages {
