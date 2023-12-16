@@ -101,5 +101,6 @@
                 </configuration>
             </plugin>
        </plugins>
+        <finalName>${project.name}-${BUILD_NUMBER}</finalName>
     </build>
 </project>
