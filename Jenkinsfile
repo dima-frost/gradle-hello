@@ -12,10 +12,10 @@ pipeline {
         stage('test') {
             steps {
             
-                sh "gradle tet-custom"
+                sh "gradle test-custom"
             }
         }
-        stage('Build') {
+        stage('build') {
             steps {
             
                 sh "gradle build-custom"
