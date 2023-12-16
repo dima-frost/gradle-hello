@@ -4,6 +4,9 @@ pipeline {
     tools {
         maven "maven-3.9.6"
     }
+     environment {
+        ARTEFACT_NAME=hello-${BUILD_NUMBER}.tar.gz
+    }
 
     stages {
         stage('Build') {
@@ -19,7 +22,6 @@ pipeline {
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
-                    ARTEFACT_NAME=hello-${BUILD_NUMBER}.tar.gz
                 }
             }
         }
