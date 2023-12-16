@@ -1,0 +1,60 @@
+
+apply plugin: 'java'
+
+repositories {
+     mavenCentral()
+}
+
+// Define project and source compatibility
+sourceCompatibility = 1.8
+group 'com.epam.devops'
+version '1.0'
+archivesBaseName = 'hello'
+
+
+// Define dependencies if needed
+dependencies {
+    // Example: implementation 'group:artifact:version'
+    implementation 'log4j:log4j:1.2.16'
+    implementation 'org.apache.commons:commons-collections4:4.0'
+    testImplementation 'junit:junit:4.9'
+}
+
+
+task 'clean-custom'(type: Delete) {
+    // Customize the clean task if needed
+    delete 'build'
+}
+
+task 'compile-custom'(type: JavaCompile) {
+    // Customize the compile task if needed
+    classpath = sourceSets.main.compileClasspath
+    destinationDir = file('build/classes')
+    source = sourceSets.main.java
+}
+
+task 'test-custom'(type: Test) {
+    // Customize the test task if needed
+    dependsOn "build-custom"
+//    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
+
+task 'build-custom'(type: Jar) {
+    // Customize the JAR task if needed
+    from sourceSets.main.output
+    // Include dependencies in the JAR file
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+
+    manifest {
+        attributes(
+            'Main-Class': 'com.test.Project' // Replace with your actual main class
+        )
+    }
+}
+
+task 'hello'{
+    dependsOn 'test-custom'
+}
