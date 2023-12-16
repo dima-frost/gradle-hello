@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven "maven-3.9.6"
+        gradle "gradle-8.6-milestone-1"
     }
      environment {
         ARTEFACT_NAME = "hello-${BUILD_NUMBER}.tar.gz"
@@ -12,27 +12,26 @@ pipeline {
         stage('test') {
             steps {
             
-                sh "mvn clean test"
+                sh "gradle tet-custom"
             }
         }
         stage('Build') {
             steps {
             
-                sh "mvn clean package"
+                sh "gradle build-custom"
             }
 
             post {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    sh "tar -czvf target/${ARTEFACT_NAME} target/hello-${BUILD_NUMBER}.jar"
+                    sh "tar -czvf build/libs/${ARTEFACT_NAME} build/libs/hello*.jar"
                 }
             }
         }
         stage('deploy') {
             steps {
-                sh "java -jar target/hello-${BUILD_NUMBER}.jar | tee output.log"
+                sh "java -jar build/libs/hello*.jar | tee output.log"
             }
         }
     }
