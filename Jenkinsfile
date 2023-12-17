@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('test') {
             steps {
-            
+                sh "gradle clean-custom"
                 sh "gradle test-custom"
             }
         }
@@ -30,7 +30,7 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    sh "tar -czvf build/libs/${ARTEFACT_NAME} build/libs/$package_name-$version.jar"
+                    sh "tar -czvf build/libs/${ARTEFACT_NAME} build/libs/$package_name-$version'.'jar"
                 }
             }
         }
