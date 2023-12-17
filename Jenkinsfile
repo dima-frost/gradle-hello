@@ -36,8 +36,11 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "output=\$(docker run -ti $package_name:v$version-b${BUILD_NUMBER})"
-                sh "echo $output | tee output.log"
+                 script {
+                    output = sh(returnStdout: true, script: "docker run -i $package_name:v$version-b${BUILD_NUMBER}")
+                 }
+                sh "echo $output"
+                sh "echo $output 1> output.log"
             }
         }
     }
