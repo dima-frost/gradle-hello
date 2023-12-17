@@ -42,6 +42,7 @@ pipeline {
                  }
                 writeFile file: 'output.log', text: output
                 sh "echo 'Output saved to output.log'"
+                sh "cat output.log"
             }
         }
     }
