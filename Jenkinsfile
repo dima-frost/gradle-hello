@@ -38,9 +38,10 @@ pipeline {
             steps {
                  script {
                     output = sh(returnStdout: true, script: "docker run -i $package_name:v$version-b${BUILD_NUMBER}")
+                    sh "echo $output"
                  }
-                sh "echo $output"
-                sh "echo $output 1> output.log"
+                writeFile file: 'output.log', text: output
+                sh: "Output saved to output.log"
             }
         }
     }
