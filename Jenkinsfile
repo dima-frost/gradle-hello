@@ -17,8 +17,8 @@ pipeline {
         }
         stage('build') {
             steps {
-                def version = sh(returnStdout: true, script: "grep 'version' build.gradle | cut -d ' ' -f2").trim()
-                def package_name = sh(returnStdout: true, script: "grep 'archivesBaseName' build.gradle | cut -d ' ' -f3").trim()
+                version = sh(returnStdout: true, script: "grep 'version' build.gradle | cut -d ' ' -f2").trim()
+                package_name = sh(returnStdout: true, script: "grep 'archivesBaseName' build.gradle | cut -d ' ' -f3").trim()
                 sh "gradle build-custom"
                 sh "docker build -t $package_name:v$version-b${BUILD_NUMBER} ."
             }
