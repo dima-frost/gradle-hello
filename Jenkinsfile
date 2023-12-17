@@ -41,7 +41,7 @@ pipeline {
                     sh "echo $output"
                  }
                 writeFile file: 'output.log', text: output
-                sh "Output saved to output.log"
+                sh "echo 'Output saved to output.log'"
             }
         }
     }
